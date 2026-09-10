@@ -1,0 +1,2095 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>CryptoSwap - USDT to INR Exchange</title>
+    <meta
+      name="description"
+      content="Convert USDT to INR instantly with best rates. Fast, secure, and reliable crypto exchange."
+    />
+
+    <!-- Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&family=Space+Grotesk:wght@500;600;700&display=swap"
+      rel="stylesheet"
+    />
+
+    <!-- Lucide Icons -->
+    <script src="https://unpkg.com/lucide@latest"></script>
+
+    <style>
+      /* CSS Reset & Base */
+      *,
+      *::before,
+      *::after {
+        box-sizing: border-box;
+        margin: 0;
+        padding: 0;
+      }
+
+      :root {
+        /* Colors */
+        --background: 0 0% 100%;
+        --foreground: 230 50% 10%;
+        --card: 0 0% 100%;
+        --card-foreground: 230 50% 10%;
+        --popover: 0 0% 100%;
+        --popover-foreground: 230 50% 10%;
+        --primary: 229 78% 33%;
+        --primary-foreground: 0 0% 100%;
+        --secondary: 230 30% 96%;
+        --secondary-foreground: 230 50% 10%;
+        --muted: 230 20% 96%;
+        --muted-foreground: 230 15% 45%;
+        --accent: 24 99% 58%;
+        --accent-foreground: 0 0% 100%;
+        --destructive: 0 84% 60%;
+        --destructive-foreground: 0 0% 100%;
+        --border: 230 20% 90%;
+        --input: 230 20% 90%;
+        --ring: 229 78% 33%;
+        --radius: 0.75rem;
+
+        /* Gradients */
+        --gradient-primary: linear-gradient(
+          180deg,
+          hsl(229 78% 33%) 0%,
+          hsl(240 85% 13%) 100%
+        );
+        --gradient-accent: linear-gradient(
+          135deg,
+          hsl(24 99% 58%) 0%,
+          hsl(24 99% 48%) 100%
+        );
+        --gradient-glow: radial-gradient(
+          circle,
+          hsl(24 99% 58% / 0.3) 0%,
+          transparent 70%
+        );
+
+        /* Shadows */
+        --shadow-sm: 0 1px 2px 0 hsl(230 50% 10% / 0.05);
+        --shadow-md: 0 4px 6px -1px hsl(230 50% 10% / 0.1);
+        --shadow-lg: 0 10px 15px -3px hsl(230 50% 10% / 0.1);
+        --shadow-xl: 0 20px 25px -5px hsl(230 50% 10% / 0.1);
+        --shadow-accent: 0 10px 40px -10px hsl(24 99% 58% / 0.5);
+        --shadow-primary: 0 10px 40px -10px hsl(229 78% 33% / 0.5);
+      }
+
+      html {
+        scroll-behavior: smooth;
+      }
+
+      body {
+        font-family: "Plus Jakarta Sans", sans-serif;
+        background-color: hsl(var(--background));
+        color: hsl(var(--foreground));
+        line-height: 1.6;
+        overflow-x: hidden;
+      }
+
+      .font-display {
+        font-family: "Space Grotesk", sans-serif;
+      }
+
+      /* Utilities */
+      .container {
+        width: 100%;
+        max-width: 1280px;
+        margin: 0 auto;
+        padding: 0 1rem;
+      }
+
+      .text-gradient {
+        background: var(--gradient-primary);
+        -webkit-background-clip: text;
+        -webkit-text-fill-color: transparent;
+        background-clip: text;
+      }
+
+      .gradient-primary {
+        background: var(--gradient-primary);
+      }
+
+      .gradient-accent {
+        background: var(--gradient-accent);
+      }
+
+      .glow-accent {
+        box-shadow: var(--shadow-accent);
+      }
+
+      .glow-primary {
+        box-shadow: var(--shadow-primary);
+      }
+
+      /* Animations */
+      @keyframes float {
+        0%,
+        100% {
+          transform: translateY(0px);
+        }
+        50% {
+          transform: translateY(-20px);
+        }
+      }
+
+      @keyframes pulse-glow {
+        0%,
+        100% {
+          opacity: 1;
+        }
+        50% {
+          opacity: 0.5;
+        }
+      }
+
+      @keyframes slide-up {
+        from {
+          opacity: 0;
+          transform: translateY(20px);
+        }
+        to {
+          opacity: 1;
+          transform: translateY(0);
+        }
+      }
+
+      @keyframes fade-in {
+        from {
+          opacity: 0;
+        }
+        to {
+          opacity: 1;
+        }
+      }
+
+      @keyframes scale-in {
+        from {
+          opacity: 0;
+          transform: scale(0.95);
+        }
+        to {
+          opacity: 1;
+          transform: scale(1);
+        }
+      }
+
+      @keyframes shimmer {
+        0% {
+          background-position: -200% 0;
+        }
+        100% {
+          background-position: 200% 0;
+        }
+      }
+
+      @keyframes bounce-subtle {
+        0%,
+        100% {
+          transform: translateY(0);
+        }
+        50% {
+          transform: translateY(-5px);
+        }
+      }
+
+      @keyframes count-up {
+        from {
+          opacity: 0;
+          transform: translateY(10px);
+        }
+        to {
+          opacity: 1;
+          transform: translateY(0);
+        }
+      }
+
+      .animate-float {
+        animation: float 6s ease-in-out infinite;
+      }
+
+      .animate-pulse-glow {
+        animation: pulse-glow 2s ease-in-out infinite;
+      }
+
+      .animate-slide-up {
+        animation: slide-up 0.6s ease-out forwards;
+      }
+
+      .animate-fade-in {
+        animation: fade-in 0.5s ease-out forwards;
+      }
+
+      .animate-scale-in {
+        animation: scale-in 0.3s ease-out forwards;
+      }
+
+      .animate-bounce-subtle {
+        animation: bounce-subtle 2s ease-in-out infinite;
+      }
+
+      /* Button Styles */
+      .btn {
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
+        gap: 0.5rem;
+        padding: 0.625rem 1.25rem;
+        border-radius: var(--radius);
+        font-weight: 600;
+        font-size: 0.875rem;
+        cursor: pointer;
+        border: none;
+        transition: all 0.3s ease;
+        text-decoration: none;
+      }
+
+      .btn-accent {
+        background: var(--gradient-accent);
+        color: hsl(var(--accent-foreground));
+        box-shadow: var(--shadow-accent);
+      }
+
+      .btn-accent:hover {
+        transform: translateY(-2px);
+        box-shadow: 0 15px 50px -10px hsl(24 99% 58% / 0.6);
+      }
+
+      .btn-outline {
+        background: transparent;
+        color: hsl(var(--foreground));
+        border: 1px solid hsl(var(--border));
+      }
+
+      .btn-outline:hover {
+        background: hsl(var(--muted));
+      }
+
+      .btn-hero {
+        background: var(--gradient-accent);
+        color: hsl(var(--accent-foreground));
+        padding: 1rem 2rem;
+        font-size: 1rem;
+        box-shadow: var(--shadow-accent);
+      }
+
+      .btn-hero:hover {
+        transform: translateY(-3px) scale(1.02);
+        box-shadow: 0 20px 60px -10px hsl(24 99% 58% / 0.7);
+      }
+
+      .btn-hero-outline {
+        background: hsl(var(--background) / 0.1);
+        color: hsl(var(--foreground));
+        border: 2px solid hsl(var(--border) / 0.5);
+        padding: 1rem 2rem;
+        font-size: 1rem;
+        backdrop-filter: blur(8px);
+      }
+
+      .btn-hero-outline:hover {
+        background: hsl(var(--background) / 0.2);
+        border-color: hsl(var(--accent));
+      }
+
+      .btn-glass {
+        background: hsl(var(--background) / 0.1);
+        color: hsl(var(--primary-foreground));
+        border: 1px solid hsl(var(--primary-foreground) / 0.2);
+        backdrop-filter: blur(8px);
+      }
+
+      .btn-glass:hover {
+        background: hsl(var(--background) / 0.2);
+      }
+
+      /* ==================== HEADER ==================== */
+      .header {
+        position: fixed;
+        top: 0;
+        left: 0;
+        right: 0;
+        z-index: 50;
+        transition: all 0.3s ease;
+      }
+
+      .header.scrolled {
+        background: hsl(var(--background) / 0.8);
+        backdrop-filter: blur(12px);
+        border-bottom: 1px solid hsl(var(--border));
+      }
+
+      .header-container {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        height: 5rem;
+      }
+
+      .logo {
+        display: flex;
+        align-items: center;
+        gap: 0.75rem;
+        text-decoration: none;
+      }
+
+      .logo-icon {
+        width: 2.5rem;
+        height: 2.5rem;
+        border-radius: 0.75rem;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+      }
+
+      .logo-text {
+        font-size: 1.5rem;
+        font-weight: 700;
+        color: hsl(var(--foreground));
+      }
+
+      .logo-text span {
+        color: hsl(var(--accent));
+      }
+
+      .nav-desktop {
+        display: none;
+        align-items: center;
+        gap: 2rem;
+      }
+
+      @media (min-width: 768px) {
+        .nav-desktop {
+          display: flex;
+        }
+      }
+
+      .nav-link {
+        color: hsl(var(--muted-foreground));
+        text-decoration: none;
+        font-weight: 500;
+        transition: color 0.3s ease;
+        position: relative;
+      }
+
+      .nav-link:hover {
+        color: hsl(var(--foreground));
+      }
+
+      .nav-link::after {
+        content: "";
+        position: absolute;
+        bottom: -4px;
+        left: 0;
+        width: 100%;
+        height: 2px;
+        background: hsl(var(--accent));
+        transform: scaleX(0);
+        transition: transform 0.3s ease;
+      }
+
+      .nav-link:hover::after {
+        transform: scaleX(1);
+      }
+
+      .header-actions {
+        display: none;
+        align-items: center;
+        gap: 0.75rem;
+      }
+
+      @media (min-width: 768px) {
+        .header-actions {
+          display: flex;
+        }
+      }
+
+      .mobile-menu-btn {
+        display: flex;
+        padding: 0.5rem;
+        background: none;
+        border: none;
+        cursor: pointer;
+        color: hsl(var(--foreground));
+      }
+
+      @media (min-width: 768px) {
+        .mobile-menu-btn {
+          display: none;
+        }
+      }
+
+      .mobile-menu {
+        display: none;
+        position: absolute;
+        top: 100%;
+        left: 0;
+        right: 0;
+        background: hsl(var(--background));
+        border-bottom: 1px solid hsl(var(--border));
+        padding: 1rem;
+      }
+
+      .mobile-menu.open {
+        display: block;
+      }
+
+      @media (min-width: 768px) {
+        .mobile-menu {
+          display: none !important;
+        }
+      }
+
+      .mobile-nav-link {
+        display: block;
+        padding: 0.75rem 1rem;
+        color: hsl(var(--muted-foreground));
+        text-decoration: none;
+        font-weight: 500;
+        border-radius: 0.5rem;
+        transition: all 0.3s ease;
+      }
+
+      .mobile-nav-link:hover {
+        background: hsl(var(--muted));
+        color: hsl(var(--foreground));
+      }
+
+      .mobile-actions {
+        display: flex;
+        gap: 0.5rem;
+        margin-top: 1rem;
+        padding-top: 1rem;
+        border-top: 1px solid hsl(var(--border));
+      }
+
+      .mobile-actions .btn {
+        flex: 1;
+      }
+
+      /* ==================== HERO ==================== */
+      .hero {
+        position: relative;
+        min-height: 100vh;
+        display: flex;
+        align-items: center;
+        padding: 6rem 0 4rem;
+        overflow: hidden;
+      }
+
+      .hero-bg {
+        position: absolute;
+        inset: 0;
+        overflow: hidden;
+      }
+
+      .hero-gradient-1 {
+        position: absolute;
+        top: -50%;
+        right: -25%;
+        width: 50%;
+        height: 100%;
+        background: hsl(var(--primary) / 0.08);
+        border-radius: 50%;
+        filter: blur(100px);
+      }
+
+      .hero-gradient-2 {
+        position: absolute;
+        bottom: -50%;
+        left: -25%;
+        width: 50%;
+        height: 100%;
+        background: hsl(var(--accent) / 0.08);
+        border-radius: 50%;
+        filter: blur(100px);
+      }
+
+      .hero-grid {
+        position: absolute;
+        inset: 0;
+        background-image: linear-gradient(
+            hsl(var(--border) / 0.3) 1px,
+            transparent 1px
+          ),
+          linear-gradient(90deg, hsl(var(--border) / 0.3) 1px, transparent 1px);
+        background-size: 60px 60px;
+        mask-image: radial-gradient(ellipse at center, black, transparent 80%);
+        -webkit-mask-image: radial-gradient(
+          ellipse at center,
+          black,
+          transparent 80%
+        );
+      }
+
+      .hero-content {
+        display: grid;
+        gap: 4rem;
+        align-items: center;
+      }
+
+      @media (min-width: 1024px) {
+        .hero-content {
+          grid-template-columns: 1fr 1fr;
+        }
+      }
+
+      .hero-text {
+        text-align: center;
+      }
+
+      @media (min-width: 1024px) {
+        .hero-text {
+          text-align: left;
+        }
+      }
+
+      .hero-badge {
+        display: inline-flex;
+        align-items: center;
+        gap: 0.5rem;
+        padding: 0.375rem 1rem;
+        background: hsl(var(--accent) / 0.1);
+        border: 1px solid hsl(var(--accent) / 0.3);
+        border-radius: 9999px;
+        margin-bottom: 1.5rem;
+        animation: slide-up 0.6s ease-out forwards;
+      }
+
+      .hero-badge-dot {
+        width: 0.5rem;
+        height: 0.5rem;
+        background: hsl(var(--accent));
+        border-radius: 50%;
+        animation: pulse-glow 2s ease-in-out infinite;
+      }
+
+      .hero-badge-text {
+        font-size: 0.875rem;
+        font-weight: 600;
+        color: hsl(var(--accent));
+      }
+
+      .hero-title {
+        font-size: 2.5rem;
+        line-height: 1.1;
+        font-weight: 700;
+        margin-bottom: 1.5rem;
+        animation: slide-up 0.6s ease-out 0.1s forwards;
+        opacity: 0;
+      }
+
+      @media (min-width: 640px) {
+        .hero-title {
+          font-size: 3.5rem;
+        }
+      }
+
+      @media (min-width: 1024px) {
+        .hero-title {
+          font-size: 4rem;
+        }
+      }
+
+      .hero-description {
+        font-size: 1.125rem;
+        color: hsl(var(--muted-foreground));
+        max-width: 32rem;
+        margin: 0 auto 2rem;
+        animation: slide-up 0.6s ease-out 0.2s forwards;
+        opacity: 0;
+      }
+
+      @media (min-width: 1024px) {
+        .hero-description {
+          margin: 0 0 2rem;
+        }
+      }
+
+      .hero-buttons {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 1rem;
+        justify-content: center;
+        animation: slide-up 0.6s ease-out 0.3s forwards;
+        opacity: 0;
+      }
+
+      @media (min-width: 1024px) {
+        .hero-buttons {
+          justify-content: flex-start;
+        }
+      }
+
+      .hero-trust {
+        display: flex;
+        flex-wrap: wrap;
+        align-items: center;
+        gap: 1.5rem;
+        margin-top: 3rem;
+        padding-top: 2rem;
+        border-top: 1px solid hsl(var(--border));
+        justify-content: center;
+        animation: fade-in 0.6s ease-out 0.5s forwards;
+        opacity: 0;
+      }
+
+      @media (min-width: 1024px) {
+        .hero-trust {
+          justify-content: flex-start;
+        }
+      }
+
+      .trust-item {
+        display: flex;
+        align-items: center;
+        gap: 0.5rem;
+      }
+
+      .trust-icon {
+        width: 1.25rem;
+        height: 1.25rem;
+        color: hsl(var(--accent));
+      }
+
+      .trust-text {
+        font-size: 0.875rem;
+        color: hsl(var(--muted-foreground));
+      }
+
+      /* Exchange Card */
+      .exchange-card-wrapper {
+        display: flex;
+        justify-content: center;
+      }
+
+      @media (min-width: 1024px) {
+        .exchange-card-wrapper {
+          justify-content: flex-end;
+        }
+      }
+
+      .exchange-card {
+        position: relative;
+        width: 100%;
+        max-width: 24rem;
+        animation: scale-in 0.5s ease-out 0.3s forwards,
+          float 6s ease-in-out infinite;
+        animation-delay: 0.3s, 0.8s;
+        opacity: 0;
+      }
+
+      .exchange-card-glow {
+        position: absolute;
+        inset: -2rem;
+        background: var(--gradient-glow);
+        border-radius: 50%;
+        filter: blur(40px);
+        animation: pulse-glow 3s ease-in-out infinite;
+      }
+
+      .exchange-card-inner {
+        position: relative;
+        background: var(--gradient-primary);
+        border-radius: 1.5rem;
+        padding: 2rem;
+        box-shadow: var(--shadow-primary);
+      }
+
+      .exchange-card-header {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        margin-bottom: 1.5rem;
+      }
+
+      .exchange-card-title {
+        color: hsl(var(--primary-foreground));
+        font-size: 0.875rem;
+        font-weight: 500;
+      }
+
+      .exchange-live-badge {
+        display: flex;
+        align-items: center;
+        gap: 0.375rem;
+        padding: 0.25rem 0.75rem;
+        background: hsl(142 76% 36% / 0.2);
+        border-radius: 9999px;
+      }
+
+      .exchange-live-dot {
+        width: 0.375rem;
+        height: 0.375rem;
+        background: hsl(142 76% 36%);
+        border-radius: 50%;
+        animation: pulse-glow 1s ease-in-out infinite;
+      }
+
+      .exchange-live-text {
+        font-size: 0.75rem;
+        color: hsl(142 76% 36%);
+        font-weight: 500;
+      }
+
+      .exchange-rate-box {
+        background: hsl(var(--background) / 0.1);
+        border-radius: 1rem;
+        padding: 1.5rem;
+        margin-bottom: 1.5rem;
+      }
+
+      .exchange-label {
+        font-size: 0.75rem;
+        color: hsl(var(--primary-foreground) / 0.7);
+        margin-bottom: 0.5rem;
+      }
+
+      .exchange-rate {
+        font-size: 2.25rem;
+        font-weight: 700;
+        color: hsl(var(--primary-foreground));
+      }
+
+      .exchange-rate span {
+        font-size: 1rem;
+        color: hsl(var(--primary-foreground) / 0.7);
+      }
+
+      .exchange-trend {
+        display: flex;
+        align-items: center;
+        gap: 0.25rem;
+        margin-top: 0.5rem;
+      }
+
+      .exchange-trend-icon {
+        width: 1rem;
+        height: 1rem;
+        color: hsl(142 76% 36%);
+      }
+
+      .exchange-trend-text {
+        font-size: 0.875rem;
+        color: hsl(142 76% 36%);
+      }
+
+      .exchange-row {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        padding: 0.75rem 0;
+        border-bottom: 1px solid hsl(var(--primary-foreground) / 0.1);
+      }
+
+      .exchange-row:last-child {
+        border-bottom: none;
+      }
+
+      .exchange-row-label {
+        font-size: 0.875rem;
+        color: hsl(var(--primary-foreground) / 0.7);
+      }
+
+      .exchange-row-value {
+        font-size: 0.875rem;
+        color: hsl(var(--primary-foreground));
+        font-weight: 600;
+      }
+
+      .exchange-card-btn {
+        width: 100%;
+        margin-top: 1rem;
+      }
+
+      /* ==================== HOW IT WORKS ==================== */
+      .how-it-works {
+        position: relative;
+        padding: 6rem 0 8rem;
+        overflow: hidden;
+      }
+
+      .how-it-works-bg {
+        position: absolute;
+        inset: 0;
+        background: hsl(var(--muted) / 0.3);
+      }
+
+      .how-it-works-line-top,
+      .how-it-works-line-bottom {
+        position: absolute;
+        left: 0;
+        right: 0;
+        height: 1px;
+        background: linear-gradient(
+          90deg,
+          transparent,
+          hsl(var(--border)),
+          transparent
+        );
+      }
+
+      .how-it-works-line-top {
+        top: 0;
+      }
+
+      .how-it-works-line-bottom {
+        bottom: 0;
+      }
+
+      .section-header {
+        text-align: center;
+        margin-bottom: 4rem;
+      }
+
+      .section-badge {
+        display: inline-block;
+        padding: 0.375rem 1rem;
+        border-radius: 9999px;
+        font-size: 0.875rem;
+        font-weight: 600;
+        margin-bottom: 1rem;
+      }
+
+      .section-badge-accent {
+        background: hsl(var(--accent) / 0.1);
+        color: hsl(var(--accent));
+      }
+
+      .section-badge-primary {
+        background: hsl(var(--primary) / 0.1);
+        color: hsl(var(--primary));
+      }
+
+      .section-title {
+        font-size: 2rem;
+        font-weight: 700;
+        margin-bottom: 1rem;
+      }
+
+      @media (min-width: 640px) {
+        .section-title {
+          font-size: 2.5rem;
+        }
+      }
+
+      @media (min-width: 1024px) {
+        .section-title {
+          font-size: 3rem;
+        }
+      }
+
+      .section-description {
+        font-size: 1.125rem;
+        color: hsl(var(--muted-foreground));
+        max-width: 42rem;
+        margin: 0 auto;
+      }
+
+      .steps-grid {
+        display: grid;
+        gap: 2rem;
+      }
+
+      @media (min-width: 768px) {
+        .steps-grid {
+          grid-template-columns: repeat(3, 1fr);
+          gap: 3rem;
+        }
+      }
+
+      .step-item {
+        position: relative;
+      }
+
+      .step-connector {
+        display: none;
+        position: absolute;
+        top: 4rem;
+        left: 50%;
+        width: 100%;
+        height: 2px;
+        background: linear-gradient(
+          90deg,
+          hsl(var(--accent) / 0.5),
+          hsl(var(--accent) / 0.1)
+        );
+      }
+
+      @media (min-width: 768px) {
+        .step-connector {
+          display: block;
+        }
+      }
+
+      .step-card {
+        position: relative;
+        background: hsl(var(--card));
+        border-radius: 1rem;
+        padding: 2rem;
+        border: 1px solid hsl(var(--border) / 0.5);
+        transition: all 0.5s ease;
+      }
+
+      .step-card:hover {
+        border-color: hsl(var(--accent) / 0.3);
+        box-shadow: var(--shadow-xl);
+        transform: translateY(-0.5rem);
+      }
+
+      .step-number {
+        position: absolute;
+        top: -1rem;
+        right: -1rem;
+        width: 3rem;
+        height: 3rem;
+        border-radius: 50%;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        font-weight: 700;
+        color: hsl(var(--accent-foreground));
+      }
+
+      .step-icon-wrapper {
+        width: 4rem;
+        height: 4rem;
+        border-radius: 1rem;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        margin-bottom: 1.5rem;
+        transition: transform 0.3s ease;
+      }
+
+      .step-card:hover .step-icon-wrapper {
+        transform: scale(1.1);
+      }
+
+      .step-icon {
+        width: 2rem;
+        height: 2rem;
+        color: hsl(var(--primary-foreground));
+      }
+
+      .step-title {
+        font-size: 1.25rem;
+        font-weight: 700;
+        margin-bottom: 0.75rem;
+      }
+
+      .step-description {
+        color: hsl(var(--muted-foreground));
+        line-height: 1.7;
+      }
+
+      /* ==================== FEATURES ==================== */
+      .features {
+        position: relative;
+        padding: 6rem 0 8rem;
+        overflow: hidden;
+      }
+
+      .features-decoration-1,
+      .features-decoration-2 {
+        position: absolute;
+        top: 50%;
+        width: 18rem;
+        height: 18rem;
+        border-radius: 50%;
+        filter: blur(80px);
+        transform: translateY(-50%);
+      }
+
+      .features-decoration-1 {
+        left: 0;
+        background: hsl(var(--accent) / 0.05);
+      }
+
+      .features-decoration-2 {
+        right: 0;
+        background: hsl(var(--primary) / 0.05);
+      }
+
+      .features-grid {
+        display: grid;
+        gap: 1.5rem;
+      }
+
+      @media (min-width: 640px) {
+        .features-grid {
+          grid-template-columns: repeat(2, 1fr);
+        }
+      }
+
+      @media (min-width: 1024px) {
+        .features-grid {
+          grid-template-columns: repeat(3, 1fr);
+          gap: 2rem;
+        }
+      }
+
+      .feature-card {
+        position: relative;
+        padding: 1.5rem 2rem;
+        border-radius: 1rem;
+        background: hsl(var(--card));
+        border: 1px solid hsl(var(--border) / 0.5);
+        transition: all 0.5s ease;
+        overflow: hidden;
+      }
+
+      .feature-card:hover {
+        border-color: hsl(var(--accent) / 0.3);
+        box-shadow: var(--shadow-xl);
+        transform: translateY(-0.25rem);
+      }
+
+      .feature-hover-gradient {
+        position: absolute;
+        inset: 0;
+        background: var(--gradient-primary);
+        opacity: 0;
+        transition: opacity 0.5s ease;
+      }
+
+      .feature-card:hover .feature-hover-gradient {
+        opacity: 0.05;
+      }
+
+      .feature-content {
+        position: relative;
+        z-index: 10;
+      }
+
+      .feature-icon-wrapper {
+        width: 3.5rem;
+        height: 3.5rem;
+        border-radius: 0.75rem;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        margin-bottom: 1.25rem;
+        transition: transform 0.3s ease;
+      }
+
+      .feature-card:hover .feature-icon-wrapper {
+        transform: scale(1.1);
+      }
+
+      .feature-icon {
+        width: 1.75rem;
+        height: 1.75rem;
+        color: hsl(var(--accent-foreground));
+      }
+
+      .feature-title {
+        font-size: 1.125rem;
+        font-weight: 700;
+        margin-bottom: 0.5rem;
+      }
+
+      .feature-description {
+        font-size: 0.875rem;
+        color: hsl(var(--muted-foreground));
+        line-height: 1.7;
+      }
+
+      /* ==================== STATS ==================== */
+      .stats {
+        position: relative;
+        padding: 5rem 0;
+      }
+
+      .stats-bg {
+        position: absolute;
+        inset: 0;
+        background: var(--gradient-primary);
+      }
+
+      .stats-pattern {
+        position: absolute;
+        inset: 0;
+        background-image: radial-gradient(
+          circle at 2px 2px,
+          hsl(var(--primary-foreground) / 0.1) 1px,
+          transparent 0
+        );
+        background-size: 40px 40px;
+      }
+
+      .stats-grid {
+        display: grid;
+        gap: 2rem;
+      }
+
+      @media (min-width: 640px) {
+        .stats-grid {
+          grid-template-columns: repeat(2, 1fr);
+        }
+      }
+
+      @media (min-width: 1024px) {
+        .stats-grid {
+          grid-template-columns: repeat(4, 1fr);
+        }
+      }
+
+      .stat-item {
+        text-align: center;
+      }
+
+      .stat-icon-wrapper {
+        width: 4rem;
+        height: 4rem;
+        border-radius: 1rem;
+        background: hsl(var(--primary-foreground) / 0.1);
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        margin: 0 auto 1rem;
+      }
+
+      .stat-icon {
+        width: 2rem;
+        height: 2rem;
+        color: hsl(var(--accent));
+      }
+
+      .stat-value {
+        font-size: 2.5rem;
+        font-weight: 700;
+        color: hsl(var(--primary-foreground));
+        margin-bottom: 0.25rem;
+      }
+
+      @media (min-width: 1024px) {
+        .stat-value {
+          font-size: 3rem;
+        }
+      }
+
+      .stat-label {
+        font-size: 0.875rem;
+        color: hsl(var(--primary-foreground) / 0.7);
+      }
+
+      /* ==================== CTA ==================== */
+      .cta {
+        position: relative;
+        padding: 6rem 0 8rem;
+        overflow: hidden;
+      }
+
+      .cta-glow-1 {
+        position: absolute;
+        top: 50%;
+        left: 25%;
+        width: 20rem;
+        height: 20rem;
+        background: hsl(var(--primary) / 0.1);
+        border-radius: 50%;
+        filter: blur(100px);
+        transform: translate(-50%, -50%);
+      }
+
+      .cta-glow-2 {
+        position: absolute;
+        top: 50%;
+        right: 25%;
+        width: 20rem;
+        height: 20rem;
+        background: hsl(var(--accent) / 0.1);
+        border-radius: 50%;
+        filter: blur(100px);
+        transform: translate(50%, -50%);
+      }
+
+      .cta-card {
+        position: relative;
+        background: var(--gradient-primary);
+        border-radius: 2rem;
+        padding: 4rem 2rem;
+        text-align: center;
+        overflow: hidden;
+      }
+
+      @media (min-width: 1024px) {
+        .cta-card {
+          padding: 5rem;
+        }
+      }
+
+      .cta-pattern {
+        position: absolute;
+        inset: 0;
+        background-image: radial-gradient(
+          circle at 2px 2px,
+          hsl(var(--primary-foreground) / 0.05) 1px,
+          transparent 0
+        );
+        background-size: 30px 30px;
+      }
+
+      .cta-glow-inner {
+        position: absolute;
+        top: 0;
+        left: 50%;
+        width: 60%;
+        height: 1px;
+        background: linear-gradient(
+          90deg,
+          transparent,
+          hsl(var(--accent) / 0.5),
+          transparent
+        );
+        transform: translateX(-50%);
+      }
+
+      .cta-content {
+        position: relative;
+        z-index: 10;
+      }
+
+      .cta-icon-wrapper {
+        width: 5rem;
+        height: 5rem;
+        border-radius: 1.5rem;
+        background: hsl(var(--primary-foreground) / 0.1);
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        margin: 0 auto 2rem;
+        animation: bounce-subtle 2s ease-in-out infinite;
+      }
+
+      .cta-icon {
+        width: 2.5rem;
+        height: 2.5rem;
+        color: hsl(var(--accent));
+      }
+
+      .cta-title {
+        font-size: 2rem;
+        font-weight: 700;
+        color: hsl(var(--primary-foreground));
+        margin-bottom: 1rem;
+      }
+
+      @media (min-width: 640px) {
+        .cta-title {
+          font-size: 2.5rem;
+        }
+      }
+
+      @media (min-width: 1024px) {
+        .cta-title {
+          font-size: 3rem;
+        }
+      }
+
+      .cta-description {
+        font-size: 1.125rem;
+        color: hsl(var(--primary-foreground) / 0.8);
+        max-width: 36rem;
+        margin: 0 auto 2rem;
+      }
+
+      .cta-buttons {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 1rem;
+        justify-content: center;
+      }
+
+      .cta-note {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        gap: 0.5rem;
+        margin-top: 1.5rem;
+      }
+
+      .cta-note-icon {
+        width: 1.25rem;
+        height: 1.25rem;
+        color: hsl(var(--accent));
+      }
+
+      .cta-note-text {
+        font-size: 0.875rem;
+        color: hsl(var(--primary-foreground) / 0.7);
+      }
+
+      /* ==================== FOOTER ==================== */
+      .footer {
+        background: hsl(var(--muted) / 0.5);
+        border-top: 1px solid hsl(var(--border));
+        padding: 4rem 0 2rem;
+      }
+
+      .footer-grid {
+        display: grid;
+        gap: 2rem;
+        margin-bottom: 3rem;
+      }
+
+      @media (min-width: 768px) {
+        .footer-grid {
+          grid-template-columns: 2fr 1fr 1fr 1fr;
+          gap: 3rem;
+        }
+      }
+
+      .footer-brand {
+        max-width: 20rem;
+      }
+
+      .footer-logo {
+        display: flex;
+        align-items: center;
+        gap: 0.75rem;
+        margin-bottom: 1rem;
+        text-decoration: none;
+      }
+
+      .footer-logo-icon {
+        width: 2.5rem;
+        height: 2.5rem;
+        border-radius: 0.75rem;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+      }
+
+      .footer-logo-text {
+        font-size: 1.25rem;
+        font-weight: 700;
+        color: hsl(var(--foreground));
+      }
+
+      .footer-logo-text span {
+        color: hsl(var(--accent));
+      }
+
+      .footer-tagline {
+        font-size: 0.875rem;
+        color: hsl(var(--muted-foreground));
+        line-height: 1.7;
+      }
+
+      .footer-section-title {
+        font-weight: 600;
+        color: hsl(var(--foreground));
+        margin-bottom: 1rem;
+      }
+
+      .footer-links {
+        list-style: none;
+        display: flex;
+        flex-direction: column;
+        gap: 0.75rem;
+      }
+
+      .footer-link {
+        font-size: 0.875rem;
+        color: hsl(var(--muted-foreground));
+        text-decoration: none;
+        transition: color 0.3s ease;
+      }
+
+      .footer-link:hover {
+        color: hsl(var(--accent));
+      }
+
+      .footer-bottom {
+        display: flex;
+        flex-direction: column;
+        gap: 1rem;
+        padding-top: 2rem;
+        border-top: 1px solid hsl(var(--border));
+        text-align: center;
+      }
+
+      @media (min-width: 768px) {
+        .footer-bottom {
+          flex-direction: row;
+          justify-content: space-between;
+          align-items: center;
+          text-align: left;
+        }
+      }
+
+      .footer-copyright {
+        font-size: 0.875rem;
+        color: hsl(var(--muted-foreground));
+      }
+
+      .footer-legal {
+        display: flex;
+        gap: 1.5rem;
+      }
+
+      .footer-legal-link {
+        font-size: 0.875rem;
+        color: hsl(var(--muted-foreground));
+        text-decoration: none;
+        transition: color 0.3s ease;
+      }
+
+      .footer-legal-link:hover {
+        color: hsl(var(--foreground));
+      }
+    </style>
+  </head>
+  <body>
+    <!-- ==================== HEADER ==================== -->
+    <header class="header" id="header">
+      <div class="container">
+        <div class="header-container">
+          <!-- Logo -->
+          <a href="#" class="logo">
+            <div class="logo-icon gradient-accent glow-accent">
+              <i
+                data-lucide="repeat"
+                style="width: 1.5rem; height: 1.5rem; color: white"
+              ></i>
+            </div>
+            <span class="font-display logo-text">Crypto<span>Swap</span></span>
+          </a>
+
+          <!-- Desktop Navigation -->
+          <nav class="nav-desktop">
+            <a href="#how-it-works" class="nav-link">How It Works</a>
+            <a href="#features" class="nav-link">Features</a>
+            <a href="#" class="nav-link">Rates</a>
+            <a href="#" class="nav-link">Support</a>
+          </nav>
+
+          <!-- Desktop Actions -->
+          <div class="header-actions">
+            <a href="#" class="btn btn-outline">Login</a>
+            <a href="#" class="btn btn-accent">Sign Up</a>
+          </div>
+
+          <!-- Mobile Menu Button -->
+          <button
+            class="mobile-menu-btn"
+            id="mobileMenuBtn"
+            aria-label="Toggle menu"
+          >
+            <i data-lucide="menu" style="width: 1.5rem; height: 1.5rem"></i>
+          </button>
+        </div>
+
+        <!-- Mobile Menu -->
+        <nav class="mobile-menu" id="mobileMenu">
+          <a href="#how-it-works" class="mobile-nav-link">How It Works</a>
+          <a href="#features" class="mobile-nav-link">Features</a>
+          <a href="#" class="mobile-nav-link">Rates</a>
+          <a href="#" class="mobile-nav-link">Support</a>
+          <div class="mobile-actions">
+            <a href="#" class="btn btn-outline">Login</a>
+            <a href="#" class="btn btn-accent">Sign Up</a>
+          </div>
+        </nav>
+      </div>
+    </header>
+
+    <!-- ==================== HERO ==================== -->
+    <section class="hero">
+      <!-- Background Effects -->
+      <div class="hero-bg">
+        <div class="hero-gradient-1"></div>
+        <div class="hero-gradient-2"></div>
+        <div class="hero-grid"></div>
+      </div>
+
+      <div class="container" style="position: relative; z-index: 10">
+        <div class="hero-content">
+          <!-- Left Content -->
+          <div class="hero-text">
+            <div class="hero-badge">
+              <span class="hero-badge-dot"></span>
+              <span class="hero-badge-text">Best Rates Guaranteed</span>
+            </div>
+
+            <h1 class="font-display hero-title">
+              Convert <span class="text-gradient">USDT</span> to INR
+              <br />Instantly
+            </h1>
+
+            <p class="hero-description">
+              The fastest and most secure way to exchange your USDT to Indian
+              Rupees. Get the best rates with zero hidden fees.
+            </p>
+
+            <div class="hero-buttons">
+              <a href="#" class="btn btn-hero">
+                <i
+                  data-lucide="zap"
+                  style="width: 1.25rem; height: 1.25rem"
+                ></i>
+                Start Exchange
+              </a>
+              <a href="#how-it-works" class="btn btn-hero-outline">
+                <i
+                  data-lucide="play"
+                  style="width: 1.25rem; height: 1.25rem"
+                ></i>
+                How It Works
+              </a>
+            </div>
+
+            <!-- Trust Indicators -->
+            <div class="hero-trust">
+              <div class="trust-item">
+                <i data-lucide="shield-check" class="trust-icon"></i>
+                <span class="trust-text">Bank-Grade Security</span>
+              </div>
+              <div class="trust-item">
+                <i data-lucide="clock" class="trust-icon"></i>
+                <span class="trust-text">5 Min Processing</span>
+              </div>
+              <div class="trust-item">
+                <i data-lucide="users" class="trust-icon"></i>
+                <span class="trust-text">50K+ Users</span>
+              </div>
+            </div>
+          </div>
+
+          <!-- Exchange Card -->
+          <div class="exchange-card-wrapper">
+            <div class="exchange-card">
+              <div class="exchange-card-glow"></div>
+              <div class="exchange-card-inner">
+                <div class="exchange-card-header">
+                  <span class="font-display exchange-card-title"
+                    >Live Exchange Rate</span
+                  >
+                  <div class="exchange-live-badge">
+                    <span class="exchange-live-dot"></span>
+                    <span class="exchange-live-text">Live</span>
+                  </div>
+                </div>
+
+                <div class="exchange-rate-box">
+                  <p class="exchange-label">1 USDT =</p>
+                  <p class="font-display exchange-rate">
+                    ₹83.50 <span>INR</span>
+                  </p>
+                  <div class="exchange-trend">
+                    <i
+                      data-lucide="trending-up"
+                      class="exchange-trend-icon"
+                    ></i>
+                    <span class="exchange-trend-text">+0.25% today</span>
+                  </div>
+                </div>
+
+                <div>
+                  <div class="exchange-row">
+                    <span class="exchange-row-label">Network Fee</span>
+                    <span class="exchange-row-value">₹0</span>
+                  </div>
+                  <div class="exchange-row">
+                    <span class="exchange-row-label">Processing Time</span>
+                    <span class="exchange-row-value">~5 min</span>
+                  </div>
+                  <div class="exchange-row">
+                    <span class="exchange-row-label">Min. Amount</span>
+                    <span class="exchange-row-value">10 USDT</span>
+                  </div>
+                </div>
+
+                <a href="#" class="btn btn-accent exchange-card-btn">
+                  Exchange Now
+                  <i
+                    data-lucide="arrow-right"
+                    style="width: 1rem; height: 1rem"
+                  ></i>
+                </a>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ==================== HOW IT WORKS ==================== -->
+    <section class="how-it-works" id="how-it-works">
+      <div class="how-it-works-bg"></div>
+      <div class="how-it-works-line-top"></div>
+      <div class="how-it-works-line-bottom"></div>
+
+      <div class="container" style="position: relative; z-index: 10">
+        <div class="section-header">
+          <span class="section-badge section-badge-accent">Simple Process</span>
+          <h2 class="font-display section-title">How It Works</h2>
+          <p class="section-description">
+            Exchange your USDT to INR in just three simple steps
+          </p>
+        </div>
+
+        <div class="steps-grid">
+          <!-- Step 1 -->
+          <div class="step-item">
+            <div class="step-connector"></div>
+            <div class="step-card">
+              <div class="step-number gradient-accent glow-accent font-display">
+                01
+              </div>
+              <div class="step-icon-wrapper gradient-primary">
+                <i data-lucide="upload" class="step-icon"></i>
+              </div>
+              <h3 class="font-display step-title">Deposit USDT</h3>
+              <p class="step-description">
+                Transfer your USDT to our secure wallet address. We support
+                TRC20 and ERC20 networks.
+              </p>
+            </div>
+          </div>
+
+          <!-- Step 2 -->
+          <div class="step-item">
+            <div class="step-connector"></div>
+            <div class="step-card">
+              <div class="step-number gradient-accent glow-accent font-display">
+                02
+              </div>
+              <div class="step-icon-wrapper gradient-primary">
+                <i data-lucide="refresh-cw" class="step-icon"></i>
+              </div>
+              <h3 class="font-display step-title">Convert</h3>
+              <p class="step-description">
+                We instantly convert your USDT to INR at the best market rates
+                with zero hidden fees.
+              </p>
+            </div>
+          </div>
+
+          <!-- Step 3 -->
+          <div class="step-item">
+            <div class="step-card">
+              <div class="step-number gradient-accent glow-accent font-display">
+                03
+              </div>
+              <div class="step-icon-wrapper gradient-primary">
+                <i data-lucide="banknote" class="step-icon"></i>
+              </div>
+              <h3 class="font-display step-title">Receive INR</h3>
+              <p class="step-description">
+                Get INR directly in your bank account within minutes. Fast,
+                secure, guaranteed.
+              </p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ==================== FEATURES ==================== -->
+    <section class="features" id="features">
+      <div class="features-decoration-1"></div>
+      <div class="features-decoration-2"></div>
+
+      <div class="container" style="position: relative; z-index: 10">
+        <div class="section-header">
+          <span class="section-badge section-badge-primary">Why Choose Us</span>
+          <h2 class="font-display section-title">
+            Trusted by <span class="text-gradient">Thousands</span>
+          </h2>
+          <p class="section-description">
+            We provide the most reliable and secure USDT to INR exchange service
+          </p>
+        </div>
+
+        <div class="features-grid">
+          <!-- Feature 1 -->
+          <div class="feature-card">
+            <div class="feature-hover-gradient"></div>
+            <div class="feature-content">
+              <div class="feature-icon-wrapper gradient-accent glow-accent">
+                <i data-lucide="shield" class="feature-icon"></i>
+              </div>
+              <h3 class="font-display feature-title">Bank-Grade Security</h3>
+              <p class="feature-description">
+                Your funds are protected with enterprise-level encryption and
+                multi-sig wallets.
+              </p>
+            </div>
+          </div>
+
+          <!-- Feature 2 -->
+          <div class="feature-card">
+            <div class="feature-hover-gradient"></div>
+            <div class="feature-content">
+              <div class="feature-icon-wrapper gradient-accent glow-accent">
+                <i data-lucide="zap" class="feature-icon"></i>
+              </div>
+              <h3 class="font-display feature-title">Lightning Fast</h3>
+              <p class="feature-description">
+                Complete your exchange in under 5 minutes with our optimized
+                processing.
+              </p>
+            </div>
+          </div>
+
+          <!-- Feature 3 -->
+          <div class="feature-card">
+            <div class="feature-hover-gradient"></div>
+            <div class="feature-content">
+              <div class="feature-icon-wrapper gradient-accent glow-accent">
+                <i data-lucide="percent" class="feature-icon"></i>
+              </div>
+              <h3 class="font-display feature-title">Best Rates</h3>
+              <p class="feature-description">
+                We offer the most competitive exchange rates in the market,
+                guaranteed.
+              </p>
+            </div>
+          </div>
+
+          <!-- Feature 4 -->
+          <div class="feature-card">
+            <div class="feature-hover-gradient"></div>
+            <div class="feature-content">
+              <div class="feature-icon-wrapper gradient-accent glow-accent">
+                <i data-lucide="clock" class="feature-icon"></i>
+              </div>
+              <h3 class="font-display feature-title">24/7 Available</h3>
+              <p class="feature-description">
+                Exchange anytime, anywhere. Our platform never sleeps.
+              </p>
+            </div>
+          </div>
+
+          <!-- Feature 5 -->
+          <div class="feature-card">
+            <div class="feature-hover-gradient"></div>
+            <div class="feature-content">
+              <div class="feature-icon-wrapper gradient-accent glow-accent">
+                <i data-lucide="headphones" class="feature-icon"></i>
+              </div>
+              <h3 class="font-display feature-title">Expert Support</h3>
+              <p class="feature-description">
+                Our dedicated team is ready to help you with any questions.
+              </p>
+            </div>
+          </div>
+
+          <!-- Feature 6 -->
+          <div class="feature-card">
+            <div class="feature-hover-gradient"></div>
+            <div class="feature-content">
+              <div class="feature-icon-wrapper gradient-accent glow-accent">
+                <i data-lucide="globe" class="feature-icon"></i>
+              </div>
+              <h3 class="font-display feature-title">All Banks Supported</h3>
+              <p class="feature-description">
+                Direct transfer to any Indian bank account with IMPS/NEFT/UPI.
+              </p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ==================== STATS ==================== -->
+    <section class="stats">
+      <div class="stats-bg"></div>
+      <div class="stats-pattern"></div>
+
+      <div class="container" style="position: relative; z-index: 10">
+        <div class="stats-grid">
+          <!-- Stat 1 -->
+          <div class="stat-item">
+            <div class="stat-icon-wrapper">
+              <i data-lucide="users" class="stat-icon"></i>
+            </div>
+            <p class="font-display stat-value" data-count="50000">50,000+</p>
+            <p class="stat-label">Happy Users</p>
+          </div>
+
+          <!-- Stat 2 -->
+          <div class="stat-item">
+            <div class="stat-icon-wrapper">
+              <i data-lucide="repeat" class="stat-icon"></i>
+            </div>
+            <p class="font-display stat-value" data-count="100">₹100Cr+</p>
+            <p class="stat-label">USDT Exchanged</p>
+          </div>
+
+          <!-- Stat 3 -->
+          <div class="stat-item">
+            <div class="stat-icon-wrapper">
+              <i data-lucide="clock" class="stat-icon"></i>
+            </div>
+            <p class="font-display stat-value" data-count="5">&lt;5 Min</p>
+            <p class="stat-label">Avg. Processing</p>
+          </div>
+
+          <!-- Stat 4 -->
+          <div class="stat-item">
+            <div class="stat-icon-wrapper">
+              <i data-lucide="star" class="stat-icon"></i>
+            </div>
+            <p class="font-display stat-value">4.9/5</p>
+            <p class="stat-label">User Rating</p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ==================== CTA ==================== -->
+    <section class="cta">
+      <div class="cta-glow-1"></div>
+      <div class="cta-glow-2"></div>
+
+      <div class="container" style="position: relative; z-index: 10">
+        <div class="cta-card">
+          <div class="cta-pattern"></div>
+          <div class="cta-glow-inner"></div>
+
+          <div class="cta-content">
+            <div class="cta-icon-wrapper">
+              <i data-lucide="rocket" class="cta-icon"></i>
+            </div>
+
+            <h2 class="font-display cta-title">Ready to Start Exchanging?</h2>
+            <p class="cta-description">
+              Join thousands of users who trust CryptoSwap for their USDT to INR
+              conversions. Start your first exchange in minutes.
+            </p>
+
+            <div class="cta-buttons">
+              <a
+                href="#"
+                class="btn btn-accent"
+                style="padding: 1rem 2rem; font-size: 1rem"
+              >
+                <i
+                  data-lucide="wallet"
+                  style="width: 1.25rem; height: 1.25rem"
+                ></i>
+                Create Free Account
+              </a>
+              <a
+                href="#"
+                class="btn btn-glass"
+                style="padding: 1rem 2rem; font-size: 1rem"
+              >
+                <i
+                  data-lucide="message-circle"
+                  style="width: 1.25rem; height: 1.25rem"
+                ></i>
+                Contact Sales
+              </a>
+            </div>
+
+            <div class="cta-note">
+              <i data-lucide="shield-check" class="cta-note-icon"></i>
+              <span class="cta-note-text"
+                >No KYC required for amounts under ₹50,000</span
+              >
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ==================== FOOTER ==================== -->
+    <footer class="footer">
+      <div class="container">
+        <div class="footer-grid">
+          <!-- Brand -->
+          <div class="footer-brand">
+            <a href="#" class="footer-logo">
+              <div class="footer-logo-icon gradient-accent">
+                <i
+                  data-lucide="repeat"
+                  style="width: 1.25rem; height: 1.25rem; color: white"
+                ></i>
+              </div>
+              <span class="font-display footer-logo-text"
+                >Crypto<span>Swap</span></span
+              >
+            </a>
+            <p class="footer-tagline">
+              The most trusted platform for converting USDT to INR. Fast,
+              secure, and reliable exchanges since 2020.
+            </p>
+          </div>
+
+          <!-- Quick Links -->
+          <div>
+            <h4 class="footer-section-title">Quick Links</h4>
+            <ul class="footer-links">
+              <li>
+                <a href="#how-it-works" class="footer-link">How It Works</a>
+              </li>
+              <li><a href="#features" class="footer-link">Features</a></li>
+              <li><a href="#" class="footer-link">Exchange Rates</a></li>
+              <li><a href="#" class="footer-link">FAQ</a></li>
+            </ul>
+          </div>
+
+          <!-- Legal -->
+          <div>
+            <h4 class="footer-section-title">Legal</h4>
+            <ul class="footer-links">
+              <li><a href="#" class="footer-link">Privacy Policy</a></li>
+              <li><a href="#" class="footer-link">Terms of Service</a></li>
+              <li><a href="#" class="footer-link">AML Policy</a></li>
+              <li><a href="#" class="footer-link">Refund Policy</a></li>
+            </ul>
+          </div>
+
+          <!-- Contact -->
+          <div>
+            <h4 class="footer-section-title">Contact</h4>
+            <ul class="footer-links">
+              <li>
+                <a href="mailto:support@cryptoswap.in" class="footer-link"
+                  >support@cryptoswap.in</a
+                >
+              </li>
+              <li><a href="#" class="footer-link">Telegram Support</a></li>
+              <li><a href="#" class="footer-link">WhatsApp</a></li>
+              <li><a href="#" class="footer-link">Live Chat</a></li>
+            </ul>
+          </div>
+        </div>
+
+        <div class="footer-bottom">
+          <p class="footer-copyright">
+            © 2024 CryptoSwap. All rights reserved.
+          </p>
+          <div class="footer-legal">
+            <a href="#" class="footer-legal-link">Privacy</a>
+            <a href="#" class="footer-legal-link">Terms</a>
+            <a href="#" class="footer-legal-link">Cookies</a>
+          </div>
+        </div>
+      </div>
+    </footer>
+
+    <!-- JavaScript -->
+    <script>
+      // Initialize Lucide Icons
+      lucide.createIcons();
+
+      // Header scroll effect
+      const header = document.getElementById("header");
+      window.addEventListener("scroll", () => {
+        if (window.scrollY > 50) {
+          header.classList.add("scrolled");
+        } else {
+          header.classList.remove("scrolled");
+        }
+      });
+
+      // Mobile menu toggle
+      const mobileMenuBtn = document.getElementById("mobileMenuBtn");
+      const mobileMenu = document.getElementById("mobileMenu");
+      let isMenuOpen = false;
+
+      mobileMenuBtn.addEventListener("click", () => {
+        isMenuOpen = !isMenuOpen;
+        mobileMenu.classList.toggle("open", isMenuOpen);
+
+        // Update icon
+        const icon = mobileMenuBtn.querySelector("i");
+        icon.setAttribute("data-lucide", isMenuOpen ? "x" : "menu");
+        lucide.createIcons();
+      });
+
+      // Close mobile menu when clicking on links
+      const mobileNavLinks = document.querySelectorAll(".mobile-nav-link");
+      mobileNavLinks.forEach((link) => {
+        link.addEventListener("click", () => {
+          isMenuOpen = false;
+          mobileMenu.classList.remove("open");
+          const icon = mobileMenuBtn.querySelector("i");
+          icon.setAttribute("data-lucide", "menu");
+          lucide.createIcons();
+        });
+      });
+
+      // Smooth scroll for anchor links
+      document.querySelectorAll('a[href^="#"]').forEach((anchor) => {
+        anchor.addEventListener("click", function (e) {
+          e.preventDefault();
+          const target = document.querySelector(this.getAttribute("href"));
+          if (target) {
+            target.scrollIntoView({
+              behavior: "smooth",
+              block: "start",
+            });
+          }
+        });
+      });
+
+      // Intersection Observer for animations
+      const observerOptions = {
+        threshold: 0.1,
+        rootMargin: "0px 0px -50px 0px",
+      };
+
+      const observer = new IntersectionObserver((entries) => {
+        entries.forEach((entry) => {
+          if (entry.isIntersecting) {
+            entry.target.style.opacity = "1";
+            entry.target.style.transform = "translateY(0)";
+          }
+        });
+      }, observerOptions);
+
+      // Observe elements for scroll animations
+      document
+        .querySelectorAll(".step-card, .feature-card, .stat-item")
+        .forEach((el) => {
+          el.style.opacity = "0";
+          el.style.transform = "translateY(20px)";
+          el.style.transition = "all 0.6s ease-out";
+          observer.observe(el);
+        });
+
+      // Animated counter for stats
+      function animateCounter(element, target, suffix = "") {
+        let current = 0;
+        const increment = target / 50;
+        const timer = setInterval(() => {
+          current += increment;
+          if (current >= target) {
+            current = target;
+            clearInterval(timer);
+          }
+          element.textContent = Math.floor(current).toLocaleString() + suffix;
+        }, 30);
+      }
+
+      // Observe stats section for counter animation
+      const statsSection = document.querySelector(".stats");
+      let statsAnimated = false;
+
+      const statsObserver = new IntersectionObserver(
+        (entries) => {
+          entries.forEach((entry) => {
+            if (entry.isIntersecting && !statsAnimated) {
+              statsAnimated = true;
+              // You can add counter animation logic here
+            }
+          });
+        },
+        { threshold: 0.3 }
+      );
+
+      statsObserver.observe(statsSection);
+    </script>
+  </body>
+</html>
