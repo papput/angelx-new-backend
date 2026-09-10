@@ -107,14 +107,48 @@ app.use(
   })
 );
 
-// Database connection
-mongoose
-  .connect(process.env.MONGODB_URI || "mongodb://localhost:27017/angelx", {
-    useNewUrlParser: true,
-    useUnifiedTopology: true,
-  })
-  .then(() => console.log("MongoDB connected successfully"))
-  .catch((err) => console.error("MongoDB connection error:", err));
+// Database connection (Atlas / Render friendly)
+const MONGODB_URI =
+  process.env.MONGODB_URI || "mongodb://localhost:27017/angelx";
+
+mongoose.set("bufferTimeoutMS", 20000);
+
+async function connectDatabase(retries = 8) {
+  for (let attempt = 1; attempt <= retries; attempt++) {
+    try {
+      await mongoose.connect(MONGODB_URI, {
+        serverSelectionTimeoutMS: 15000,
+        connectTimeoutMS: 15000,
+        socketTimeoutMS: 45000,
+        maxPoolSize: 10,
+      });
+      console.log(
+        "MongoDB connected successfully:",
+        mongoose.connection.name || "(default db)",
+      );
+      return;
+    } catch (err) {
+      console.error(
+        `MongoDB connection attempt ${attempt}/${retries} failed:`,
+        err.message,
+      );
+      if (attempt === retries) {
+        throw err;
+      }
+      await new Promise((resolve) => setTimeout(resolve, attempt * 2000));
+    }
+  }
+}
+
+mongoose.connection.on("disconnected", () => {
+  console.error("MongoDB disconnected");
+});
+mongoose.connection.on("reconnected", () => {
+  console.log("MongoDB reconnected");
+});
+mongoose.connection.on("error", (err) => {
+  console.error("MongoDB connection error event:", err.message);
+});
 
 // Routes
 app.use("/api/v1/auth", authRoutes);
@@ -128,7 +162,15 @@ app.use("/api/v1/blogs", blogRoutes);
 
 // Health check endpoint
 app.get("/health", (req, res) => {
-  res.json({ status: "OK", message: "AngelX API is running" });
+  const dbState = mongoose.connection.readyState;
+  // 0=disconnected, 1=connected, 2=connecting, 3=disconnecting
+  const dbConnected = dbState === 1;
+  res.status(dbConnected ? 200 : 503).json({
+    status: dbConnected ? "OK" : "DEGRADED",
+    message: "AngelX API is running",
+    dbConnected,
+    dbState,
+  });
 });
 
 // Error handling middleware
@@ -142,6 +184,26 @@ app.use((req, res, next) => {
   });
 });
 
-app.listen(PORT, () => {
-  console.log(`AngelX API server running on port ${PORT}`);
-});
+async function startServer() {
+  if (!process.env.MONGODB_URI) {
+    console.error(
+      "FATAL: MONGODB_URI is not set. Add it in Render Environment variables.",
+    );
+  }
+
+  try {
+    await connectDatabase();
+  } catch (err) {
+    console.error(
+      "FATAL: Could not connect to MongoDB. Check MONGODB_URI and Atlas Network Access (allow 0.0.0.0/0 for Render).",
+      err.message,
+    );
+    // Keep process alive so Render can show logs; health will report DEGRADED.
+  }
+
+  app.listen(PORT, () => {
+    console.log(`AngelX API server running on port ${PORT}`);
+  });
+}
+
+startServer();

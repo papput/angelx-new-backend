@@ -714,7 +714,19 @@ const updateTransactionPassword = catchAsyncError(async (req, res, next) => {
 
 const getWhatsAppNumber = async (req, res) => {
   try {
-    let config = await WhatsAppConfig.findOne();
+    // Avoid long mongoose buffering timeouts when DB is disconnected
+    if (require("mongoose").connection.readyState !== 1) {
+      return res.status(503).json({
+        success: false,
+        message: "Database unavailable. Please try again shortly.",
+        data: {
+          phoneNumber: "",
+          defaultMessage: "",
+        },
+      });
+    }
+
+    let config = await WhatsAppConfig.findOne().maxTimeMS(5000);
 
     if (!config) {
       config = await WhatsAppConfig.create({});
@@ -726,7 +738,14 @@ const getWhatsAppNumber = async (req, res) => {
     });
   } catch (err) {
     console.error("WhatsApp Config Fetch Error:", err);
-    res.status(500).json({ success: false, message: "Server error" });
+    res.status(500).json({
+      success: false,
+      message: "Server error",
+      data: {
+        phoneNumber: "",
+        defaultMessage: "",
+      },
+    });
   }
 };
 
