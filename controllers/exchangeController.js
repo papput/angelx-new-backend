@@ -918,10 +918,33 @@ const getExchangeDetails = catchAsyncError(async (req, res, next) => {
   });
 });
 
+// @desc    Get market list prices/volumes from CoinGecko
+// @access  Public
+const getMarketList = catchAsyncError(async (req, res, next) => {
+  try {
+    const { fetchMarketListFromCoinGecko } = require("../utils/marketList");
+    const markets = await fetchMarketListFromCoinGecko();
+    res.status(200).json({
+      success: true,
+      data: { markets },
+    });
+  } catch (error) {
+    console.error("CoinGecko market list error:", error.response?.data || error.message);
+    return next(
+      new ErrorHandler(
+        "Failed to fetch market list from CoinGecko: " +
+          (error.response?.data?.error || error.message),
+        502,
+      ),
+    );
+  }
+});
+
 module.exports = {
   getCurrentRate,
   updateRate,
   updateRateFromCoinGecko,
+  getMarketList,
   getExchangeMethods,
   addExchangeMethod,
   deleteExchangeMethod,

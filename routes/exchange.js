@@ -3,6 +3,7 @@ const {
   getCurrentRate, 
   updateRate, 
   updateRateFromCoinGecko,
+  getMarketList,
   getExchangeMethods, 
   addExchangeMethod, 
   deleteExchangeMethod,
@@ -27,6 +28,11 @@ router.get('/balance', authenticateUser, getCurrentBalance);
 // @desc    Get current exchange rate
 // @access  Public
 router.get('/rate', getCurrentRate);
+
+// @route   GET /api/exchange/market-list
+// @desc    Get live market prices and volumes (CoinGecko)
+// @access  Public
+router.get('/market-list', getMarketList);
 
 // @route   POST /api/exchange/rate
 // @desc    Update exchange rate (admin only)
